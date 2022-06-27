@@ -29,13 +29,14 @@ exit_inst.write("Type 'Exit' to exit game and show missing states", align = 'cen
 while game_is_on:
     answer_state = screen.textinput(title=f'{score}/50 States', prompt="What's another states name?").title()
     if answer_state == 'Exit':
-        missing_states = []
+        missing_states = [state for state in all_states if state not in guessed_states]
         for state in all_states:
             if state not in guessed_states:
                 missing_states.append(state)
         missed_states = pd.DataFrame(missing_states)
         missed_states.to_csv('States-to-learn.csv')
         game_is_on = False
+
     elif score == 50:
         over = turtle.Turtle()
         over.penup()
